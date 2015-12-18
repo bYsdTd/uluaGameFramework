@@ -40,7 +40,13 @@ function Main()
 	--coroutine.start(TestCo)
 	--coroutine.start(TestCo2)
 	
-	Timer.New();
+	Timer.New(function() 
+		
+		print("this is in custom timer!");
+		
+	end, 1, -1, false):Start();
+	
+	
 end
 
 function Update(deltatime, unscaledDeltaTime)
