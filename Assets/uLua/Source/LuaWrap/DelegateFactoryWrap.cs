@@ -13,6 +13,7 @@ public class DelegateFactoryWrap
 			new LuaMethod("System_Reflection_MemberFilter", System_Reflection_MemberFilter),
 			new LuaMethod("System_Reflection_TypeFilter", System_Reflection_TypeFilter),
 			new LuaMethod("TestLuaDelegate_VoidDelegate", TestLuaDelegate_VoidDelegate),
+			new LuaMethod("Camera_CameraCallback", Camera_CameraCallback),
 			new LuaMethod("AudioClip_PCMReaderCallback", AudioClip_PCMReaderCallback),
 			new LuaMethod("AudioClip_PCMSetPositionCallback", AudioClip_PCMSetPositionCallback),
 			new LuaMethod("Application_LogCallback", Application_LogCallback),
@@ -96,6 +97,16 @@ public class DelegateFactoryWrap
 		LuaScriptMgr.CheckArgsCount(L, 1);
 		LuaFunction arg0 = LuaScriptMgr.GetLuaFunction(L, 1);
 		Delegate o = DelegateFactory.TestLuaDelegate_VoidDelegate(arg0);
+		LuaScriptMgr.Push(L, o);
+		return 1;
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int Camera_CameraCallback(IntPtr L)
+	{
+		LuaScriptMgr.CheckArgsCount(L, 1);
+		LuaFunction arg0 = LuaScriptMgr.GetLuaFunction(L, 1);
+		Delegate o = DelegateFactory.Camera_CameraCallback(arg0);
 		LuaScriptMgr.Push(L, o);
 		return 1;
 	}

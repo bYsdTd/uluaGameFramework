@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public static class WrapFile {
 
@@ -83,9 +86,16 @@ public static class WrapFile {
         _GT(typeof(Texture)),
         _GT(typeof(RenderTexture)),
         _GT(typeof(ParticleSystem)),
-        
 
-        //ngui
+		// ui
+		_GT(typeof(UIBehaviour)),
+		_GT(typeof(Selectable)),
+		_GT(typeof(Button)),
+		_GT(typeof(UnityEventBase)),
+		_GT(typeof(UnityEvent)),
+		_GT(typeof(Button.ButtonClickedEvent)),
+		
+		//ngui
         /*_GT(typeof(UICamera)),
         _GT(typeof(Localization)),
         _GT(typeof(NGUITools)),
