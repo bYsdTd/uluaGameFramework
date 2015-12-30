@@ -51,9 +51,11 @@ public static class LuaBinder
 			case "PlayModeWrap": PlayModeWrap.Register(L); break;
 			case "QualitySettingsWrap": QualitySettingsWrap.Register(L); break;
 			case "QueueModeWrap": QueueModeWrap.Register(L); break;
+			case "RectTransformWrap": RectTransformWrap.Register(L); break;
 			case "RenderSettingsWrap": RenderSettingsWrap.Register(L); break;
 			case "RenderTextureWrap": RenderTextureWrap.Register(L); break;
 			case "RendererWrap": RendererWrap.Register(L); break;
+			case "ResourcesWrap": ResourcesWrap.Register(L); break;
 			case "ScreenWrap": ScreenWrap.Register(L); break;
 			case "SkinnedMeshRendererWrap": SkinnedMeshRendererWrap.Register(L); break;
 			case "SleepTimeoutWrap": SleepTimeoutWrap.Register(L); break;

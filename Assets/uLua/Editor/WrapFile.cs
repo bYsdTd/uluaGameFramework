@@ -79,7 +79,8 @@ public static class WrapFile {
         _GT(typeof(SleepTimeout)),        
 
         _GT(typeof(AsyncOperation)).SetBaseName("System.Object"),
-        _GT(typeof(AssetBundle)),   
+        _GT(typeof(AssetBundle)),
+		_GT(typeof(Resources)),
         _GT(typeof(BlendWeights)),   
         _GT(typeof(QualitySettings)),          
         _GT(typeof(AnimationBlendMode)),    
@@ -88,6 +89,7 @@ public static class WrapFile {
         _GT(typeof(ParticleSystem)),
 
 		// ui
+		_GT(typeof(RectTransform)),
 		_GT(typeof(UIBehaviour)),
 		_GT(typeof(Selectable)),
 		_GT(typeof(Button)),

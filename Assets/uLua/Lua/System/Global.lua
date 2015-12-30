@@ -6,6 +6,7 @@ Type			= System.Type
 Object          = UnityEngine.Object
 GameObject 		= UnityEngine.GameObject
 Transform 		= UnityEngine.Transform
+RectTransform	= UnityEngine.RectTransform
 MonoBehaviour 	= UnityEngine.MonoBehaviour
 Component		= UnityEngine.Component
 Application		= UnityEngine.Application

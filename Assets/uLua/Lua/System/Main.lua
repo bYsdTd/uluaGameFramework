@@ -3,6 +3,8 @@ LateUpdateBeat = Event("LateUpdate", true)
 CoUpdateBeat = Event("CoUpdate", true)
 FixedUpdateBeat = Event("FixedUpdate", true)
 
+require("Game.threeEraseGame.lua");
+
 function TestCo2()
 	local go = GameObject.Find("/Cube")
 	local render = go.renderer
@@ -38,9 +40,15 @@ function Main()
 	--测试协同
 	--coroutine.start(TestCo)
 	--coroutine.start(TestCo2)
+	
+	print("Main");
+	
+	local game = threeEraseGame.New();
+
 end
 
 function Update(deltatime, unscaledDeltaTime)
+
 	Time:SetDeltaTime(deltatime, unscaledDeltaTime)
 	UpdateBeat()
 end

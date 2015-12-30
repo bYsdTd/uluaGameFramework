@@ -3,39 +3,39 @@ using System.Collections;
 using LuaInterface;
 
 public class luaManager : MonoBehaviour {
-
-	private LuaScriptMgr _luaScriptMgr = null;
-
+	
 	// Use this for initialization
-	void Start () {
+	public void Init () {
 
-		_luaScriptMgr = new LuaScriptMgr();
-		_luaScriptMgr.Start ();
+		Debug.Log("luaManager start");
+
+		LuaScriptMgr luaScriptMgr = new LuaScriptMgr();
+		luaScriptMgr.Start ();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		if(_luaScriptMgr != null)
+		if(LuaScriptMgr.Instance != null)
 		{
-			_luaScriptMgr.Update();
+			LuaScriptMgr.Instance.Update();
 		}
 	}
 
 	void FixedUpdate()
 	{
-		if(_luaScriptMgr != null)
+		if(LuaScriptMgr.Instance != null)
 		{
-			_luaScriptMgr.FixedUpdate();
+			LuaScriptMgr.Instance.FixedUpdate();
 		}
 	}
 
 	void LateUpdate()
 	{
-		if(_luaScriptMgr != null)
+		if(LuaScriptMgr.Instance != null)
 		{
-			_luaScriptMgr.LateUpate();
+			LuaScriptMgr.Instance.LateUpate();
 		}
 	}
 }
