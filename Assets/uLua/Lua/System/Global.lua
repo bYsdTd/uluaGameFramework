@@ -42,6 +42,10 @@ ParticleAnimator= UnityEngine.ParticleAnimator
 TouchPhase 		= UnityEngine.TouchPhase
 AnimationBlendMode = UnityEngine.AnimationBlendMode
 
+-- UGUI
+Image = UnityEngine.UI.Image
+Button = UnityEngine.UI.Button
+
 function print(...)	
 	local arg = {...}	
 	local t = {}	
@@ -82,7 +86,6 @@ require "System.Plane"
 require "System.Bounds"
 
 require "System.Coroutine"
-
 
 function traceback(msg)
 	msg = debug.traceback(msg, 2)

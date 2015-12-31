@@ -96,7 +96,10 @@ public static class WrapFile {
 		_GT(typeof(UnityEventBase)),
 		_GT(typeof(UnityEvent)),
 		_GT(typeof(Button.ButtonClickedEvent)),
-		
+		_GT(typeof(Graphic)),
+		_GT(typeof(MaskableGraphic)),
+		_GT(typeof(Image)),
+
 		//ngui
         /*_GT(typeof(UICamera)),
         _GT(typeof(Localization)),

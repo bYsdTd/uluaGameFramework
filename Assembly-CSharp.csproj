@@ -174,6 +174,9 @@
      <Compile Include="Assets\uLua\Source\LuaWrap\UnityEngine_Events_UnityEventWrap.cs" />
      <Compile Include="Assets\uLua\Source\LuaWrap\UnityEngine_UI_ButtonWrap.cs" />
      <Compile Include="Assets\uLua\Source\LuaWrap\UnityEngine_UI_Button_ButtonClickedEventWrap.cs" />
+     <Compile Include="Assets\uLua\Source\LuaWrap\UnityEngine_UI_GraphicWrap.cs" />
+     <Compile Include="Assets\uLua\Source\LuaWrap\UnityEngine_UI_ImageWrap.cs" />
+     <Compile Include="Assets\uLua\Source\LuaWrap\UnityEngine_UI_MaskableGraphicWrap.cs" />
      <Compile Include="Assets\uLua\Source\LuaWrap\UnityEngine_UI_SelectableWrap.cs" />
      <Compile Include="Assets\uLua\Source\LuaWrap\UtilWrap.cs" />
      <Compile Include="Assets\uLua\Source\LuaWrap\WWWWrap.cs" />
@@ -182,11 +185,17 @@
      <None Include="Assets\uLua\Examples\A4_ButtonClick\ReadMe.txt" />
      <None Include="Assets\uLua\Examples\04_ScriptsFromFile\ScriptsFromFile01.lua.txt" />
      <None Include="Assets\uLua\Lua\System\readme.txt" />
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Debuger">
  <HintPath>/Users/zhangyi/code/unity/uLua/Assets/Plugins/Debuger.dll</HintPath>

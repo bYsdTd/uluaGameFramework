@@ -76,6 +76,9 @@ public static class LuaBinder
 			case "UnityEngine_Events_UnityEventWrap": UnityEngine_Events_UnityEventWrap.Register(L); break;
 			case "UnityEngine_UI_ButtonWrap": UnityEngine_UI_ButtonWrap.Register(L); break;
 			case "UnityEngine_UI_Button_ButtonClickedEventWrap": UnityEngine_UI_Button_ButtonClickedEventWrap.Register(L); break;
+			case "UnityEngine_UI_GraphicWrap": UnityEngine_UI_GraphicWrap.Register(L); break;
+			case "UnityEngine_UI_ImageWrap": UnityEngine_UI_ImageWrap.Register(L); break;
+			case "UnityEngine_UI_MaskableGraphicWrap": UnityEngine_UI_MaskableGraphicWrap.Register(L); break;
 			case "UnityEngine_UI_SelectableWrap": UnityEngine_UI_SelectableWrap.Register(L); break;
 			case "UtilWrap": UtilWrap.Register(L); break;
 			case "WWWWrap": WWWWrap.Register(L); break;
