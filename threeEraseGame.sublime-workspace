@@ -20,13 +20,13 @@
 	"buffers":
 	[
 		{
-			"contents": "blocks = class(\"blocks\");\n\nfunction blocks:init(w, h, blockTypes)\n	self.w = w;\n	self.h = h;\n	self.blockTyps = blockTypes;\n	\n	self.data = {};\n	\n	-- i 是 行，j 是 列\n	for i=1, h do\n		\n		for j=1, w do\n					\n			self.data[j] = self.data[j] or {};\n			\n			self.data[j][i] = self.data[j][i] or 0;\n			\n		end\n	\n	end\n	\nend\n\nfunction blocks:getWidth()\n	return self.w;\nend\n\nfunction blocks:getHeight()\n	return self.h;\nend\n\nfunction blocks:getBlockTypes()\n	return self.blockTyps;\nend\n\nfunction blocks:getdata()\n	return self.data;\nend\n\nfunction blocks:generate()\n	\n	function isTypeExist(typeValue, list)\n		for k, v in pairs(list) do\n			if v == typeValue then\n				return true;\n			end\n		end\n		\n		return false;\n	end\n	\n	math.randomseed(os.time());\n	\n	local debuginfo = \"\\n\";\n	\n	for i=1, self.h do\n		\n		for j=1, self.w do\n			\n			local exceptTypes = {};\n			\n			if j > 2 and self.data[j-1][i] == self.data[j-2][i] then\n				-- 比较横排的前面有没有相同的\n				table.insert(exceptTypes, self.data[j-1][i]);\n			end\n			\n			if i > 2 and self.data[j][i-1]== self.data[j][i-2] then\n				table.insert(exceptTypes, self.data[j][i-1]);\n			end\n			\n			local validTypes = {};\n			for i=1, self.blockTyps do\n			\n				if not isTypeExist(i, exceptTypes) then\n						table.insert(validTypes, i);\n				end\n				\n			end\n			\n			local randomCount = #validTypes;\n			\n			if randomCount == 0 then\n				return false;\n			end\n			\n			local randomKey = math.random(1, randomCount);\n			self.data[j][i] = validTypes[randomKey];\n			\n			debuginfo = debuginfo..self.data[j][i]..\" \";\n		end\n		\n		debuginfo = debuginfo..\"\\n\";\n		\n	end\n	\n	print(debuginfo);\n	\nend\n\nfunction blocks:swap(x1, y1, x2, y2)\n	\n	if self.data[x1][y1] and self.data[x2][y2] then\n	\n		self.data[x1][y1], self.data[x2][y2] = self.data[x2][y2], self.data[x1][y1];\n	\n	end\n	\nend\n\n-- 检查连线，3， 4 ，5个？\nfunction blocks:checkThree()\n	\n	print(\"------------checkThree--------\");\n	-- eraseBlocks 的 local k = (i-1) * self.w + j;\n	\n	local eraseBlocks = {};\n	\n	local hasErase = false;\n	\n	for i=1, self.h do\n		\n		for j=1, self.w do\n			\n			local k = self:getIndexByPos(j, i);\n			local currentBlock = self.data[j][i];\n			\n			eraseBlocks[k] = {row = false, col = false};\n			\n			-- check row\n			if j > 2 and self.data[j-1][i] == self.data[j-2][i] and self.data[j-1][i] == currentBlock then \n				eraseBlocks[k] = { row = true, col = eraseBlocks[k].col };\n				eraseBlocks[k-1] = { row = true, col = eraseBlocks[k-1].col };\n				eraseBlocks[k-2] = { row = true, col = eraseBlocks[k-2].col };\n				--print(\"row \"..j..\" \"..i..\" k \"..k);\n				\n				hasErase = true;\n			end\n			\n			-- check column\n			if i > 2 and self.data[j][i-1] == self.data[j][i-2] and self.data[j][i-1] == currentBlock then\n				eraseBlocks[k] = { row = eraseBlocks[k].row, col = true };\n				eraseBlocks[k-self.w] = { row = eraseBlocks[k-self.w].row, col = true };\n				eraseBlocks[k-self.w-self.w] = { row = eraseBlocks[k-self.w-self.w].row, col = true };\n				hasErase = true;\n				--print(\"column \"..j..\" \"..i..\" k \"..k);\n			end\n			\n		end\n		\n	end\n	\n	\n	local moveHandledList = {};\n	local moveList = {};\n	\n	for k, v in ipairs(eraseBlocks) do\n		\n		local j, i = self:getPosByIndex(k);\n		\n		local typeInfo = \"\";\n		if v.row then\n			typeInfo = typeInfo..\" row \";\n		end\n		\n		if v.col then\n			typeInfo = typeInfo..\" col \";\n		end\n		\n		if v.row or v.col then\n			print(\"k \"..k..\" j \"..j..\" i \"..i..typeInfo);\n		end\n		\n		-- 同时生成移动的列表\n		if (v.row or v.col) and moveHandledList[k] == nil then\n			\n			moveHandledList[k] = true;\n			\n			-- 消除的是第j列的，x坐标是j，那么遍历这一列的所有\n			-- 计算出每个块的移动\n			local move = 0;\n			for rowindex=self.h, 1, -1 do\n				local tempkey = self:getIndexByPos(j, rowindex);\n				--print(\"handle \"..j..\" \"..rowindex..\" tempkey \"..tempkey);\n				if eraseBlocks[tempkey].row or eraseBlocks[tempkey].col then\n					-- 如果是消除的当前移动加1\n					move = move + 1;\n					moveHandledList[tempkey] = true;\n				else\n					-- 不消除的就移动当前的move\n					if move > 0 then\n						-- 保存的是移动后的x， y\n						table.insert(moveList, {x=j, y = rowindex + move, move = move});\n						--print(\"1-- x \"..j..\" y \"..(rowindex+move)..\" move \"..move);\n					end\n				end\n			end\n			\n			-- 还有其他的多生成的移动的等于最后的一个move的\n			for genNew = 1, move do\n				table.insert(moveList, {x=j, y = genNew, move = move});\n				--print(\"new-- x \"..j..\" y \"..genNew..\" move \"..move);\n			end\n			\n			\n			--table.insert();\n		end\n				\n	end\n	\n	--[[\n	-- debug log\n	for movekey, movevalue in ipairs(moveList) do\n		print(\" x \"..movevalue.x..\" y \"..movevalue.y..\" move \"..movevalue.move);\n	end\n	--]]\n	\n	-- 返回消除的block的位置坐标, 没有的话返回nil\n	if hasErase then\n		\n		-- k to pos\n		local poslist = {};\n		for k, v in ipairs(eraseBlocks) do\n			if v.row or v.col then\n				local x, y = self:getPosByIndex(k);\n				\n				table.insert(poslist, {x = x, y = y});\n			end\n		end\n		\n		return poslist, moveList;\n	else\n		return nil;\n	end\n	\nend\n\nfunction blocks:getIndexByPos(x, y)\n	local k = (y-1) * self.w + x;\n	\n	return k;\nend\n\nfunction blocks:getPosByIndex(k)\n	-- local k = (i-1) * self.w + j;\n	\n	local j = math.fmod(k-1, self.w) + 1; -- x 第几列\n	\n	local i = math.floor((k - j) / self.w) + 1; -- y 第几行\n	\n	return j, i;\nend\n\n-- 消除可以消除的，根据消除的数量生成新的blocks，然后在做相应的移动\nfunction blocks:eraseAndGen(poslist)\n	\n	local movelist = {};\n			\n	for k, v in ipairs(poslist) do\n\n		local x, y = v.x, v.y;\n				\n		for i=y, 1, -1 do\n			if i == 1 then\n				-- gen new\n				self.data[x][i] = math.random(1, self.blockTyps);\n			else\n				--print(\"x \"..x..\" i \"..i);\n				self.data[x][i] = self.data[x][i-1];\n			end\n			\n			--table.insert(movelist, {x = x, y = i});\n		end\n					\n	end\n		\n	return movelist;\nend\n\n\n-- 测试\nfunction blocks:test()\n	for i=1, self.h do\n		\n		for j=1, self.w do\n			\n			if i > 1 then\n				print(\"swap i j \"..i..\" \"..j..\" --> \"..(i-1)..\" \"..j);\n				self:swap(i, j, i-1, j);\n				--self:printBlocks();\n				\n				local poslist = self:checkThree();\n				\n				local combo = 0;\n				while poslist ~= nil do\n					\n					print(\"----combo-------  \"..combo);\n					self:printBlocks(poslist);\n					\n					local movelist = self:eraseAndGen(poslist);\n					\n					self:printBlocks(movelist);\n					\n					poslist = self:checkThree();\n					\n					combo = combo + 1;				\n				end\n				\n				if combo == 0 then\n					self:swap(i, j, i-1, j);\n				end\n				\n				--[[\n				if poslist ~= nil then\n					\n					self:printBlocks(poslist);\n					\n					local movelist = self:eraseAndGen(poslist);\n					\n					self:printBlocks(movelist);\n					\n					-- 消除之后，需要判断落下以后是不是有新的消除\n					\n				else\n					self:swap(i, j, i-1, j);\n				end\n				--]]\n				\n			end\n			\n			\n		end\n		\n	end\nend\n\n-- 打印block\nfunction blocks:printBlocks(poslist)\n	local debuginfo = \"\\n\";\n	\n	for i=1, self.h do\n		\n		for j=1, self.w do\n			\n			local inlist = false;\n			if poslist then\n				for k,v in pairs(poslist) do\n					if v.x == j and v.y == i then\n						inlist = true;\n						break;\n					end\n				end\n			end\n			\n			if not inlist then\n				debuginfo = debuginfo..self.data[j][i]..\" \";\n			else\n				debuginfo = debuginfo..\"*\"..self.data[j][i]..\" \";\n			end\n		end\n		\n		debuginfo = debuginfo..\"\\n\";\n		\n	end\n	\n	print(debuginfo);\n	\nend\n",
+			"contents": "blocks = class(\"blocks\");\n\nfunction blocks:init(w, h, blockTypes)\n	self.w = w;\n	self.h = h;\n	self.blockTyps = blockTypes;\n	\n	self.data = {};\n	\n	-- i 是 行，j 是 列\n	for i=1, h do\n		\n		for j=1, w do\n					\n			self.data[j] = self.data[j] or {};\n			\n			self.data[j][i] = self.data[j][i] or 0;\n			\n		end\n	\n	end\n	\nend\n\nfunction blocks:getWidth()\n	return self.w;\nend\n\nfunction blocks:getHeight()\n	return self.h;\nend\n\nfunction blocks:getBlockTypes()\n	return self.blockTyps;\nend\n\nfunction blocks:getdata()\n	return self.data;\nend\n\nfunction blocks:generate()\n	\n	function isTypeExist(typeValue, list)\n		for k, v in pairs(list) do\n			if v == typeValue then\n				return true;\n			end\n		end\n		\n		return false;\n	end\n	\n	math.randomseed(os.time());\n	\n	local debuginfo = \"\\n\";\n	\n	for i=1, self.h do\n		\n		for j=1, self.w do\n			\n			local exceptTypes = {};\n			\n			if j > 2 and self.data[j-1][i] == self.data[j-2][i] then\n				-- 比较横排的前面有没有相同的\n				table.insert(exceptTypes, self.data[j-1][i]);\n			end\n			\n			if i > 2 and self.data[j][i-1]== self.data[j][i-2] then\n				table.insert(exceptTypes, self.data[j][i-1]);\n			end\n			\n			local validTypes = {};\n			for i=1, self.blockTyps do\n			\n				if not isTypeExist(i, exceptTypes) then\n						table.insert(validTypes, i);\n				end\n				\n			end\n			\n			local randomCount = #validTypes;\n			\n			if randomCount == 0 then\n				return false;\n			end\n			\n			local randomKey = math.random(1, randomCount);\n			self.data[j][i] = validTypes[randomKey];\n			\n			debuginfo = debuginfo..self.data[j][i]..\" \";\n		end\n		\n		debuginfo = debuginfo..\"\\n\";\n		\n	end\n	\n	--print(debuginfo);\n	\nend\n\nfunction blocks:swap(x1, y1, x2, y2)\n	\n	if self.data[x1][y1] and self.data[x2][y2] then\n	\n		self.data[x1][y1], self.data[x2][y2] = self.data[x2][y2], self.data[x1][y1];\n	\n	end\n	\nend\n\n-- 检查连线，3， 4 ，5个？\nfunction blocks:checkThree()\n	\n	print(\"------------checkThree--------\");\n	-- eraseBlocks 的 local k = (i-1) * self.w + j;\n	\n	local eraseBlocks = {};\n	\n	local hasErase = false;\n	\n	for i=1, self.h do\n		\n		for j=1, self.w do\n			\n			local k = self:getIndexByPos(j, i);\n			local currentBlock = self.data[j][i];\n			\n			eraseBlocks[k] = {row = false, col = false};\n			\n			-- check row\n			if j > 2 and self.data[j-1][i] == self.data[j-2][i] and self.data[j-1][i] == currentBlock then \n				eraseBlocks[k] = { row = true, col = eraseBlocks[k].col };\n				eraseBlocks[k-1] = { row = true, col = eraseBlocks[k-1].col };\n				eraseBlocks[k-2] = { row = true, col = eraseBlocks[k-2].col };\n				--print(\"row \"..j..\" \"..i..\" k \"..k);\n				\n				hasErase = true;\n			end\n			\n			-- check column\n			if i > 2 and self.data[j][i-1] == self.data[j][i-2] and self.data[j][i-1] == currentBlock then\n				eraseBlocks[k] = { row = eraseBlocks[k].row, col = true };\n				eraseBlocks[k-self.w] = { row = eraseBlocks[k-self.w].row, col = true };\n				eraseBlocks[k-self.w-self.w] = { row = eraseBlocks[k-self.w-self.w].row, col = true };\n				hasErase = true;\n				--print(\"column \"..j..\" \"..i..\" k \"..k);\n			end\n			\n		end\n		\n	end\n	\n	\n	local moveHandledList = {};\n	local moveList = {};\n	\n	for k, v in ipairs(eraseBlocks) do\n		\n		local j, i = self:getPosByIndex(k);\n		\n		local typeInfo = \"\";\n		if v.row then\n			typeInfo = typeInfo..\" row \";\n		end\n		\n		if v.col then\n			typeInfo = typeInfo..\" col \";\n		end\n		\n		if v.row or v.col then\n			print(\"k \"..k..\" j \"..j..\" i \"..i..typeInfo);\n		end\n		\n		-- 同时生成移动的列表\n		if (v.row or v.col) and moveHandledList[k] == nil then\n			\n			moveHandledList[k] = true;\n			\n			-- 消除的是第j列的，x坐标是j，那么遍历这一列的所有\n			-- 计算出每个块的移动\n			local move = 0;\n			for rowindex=self.h, 1, -1 do\n				local tempkey = self:getIndexByPos(j, rowindex);\n				--print(\"handle \"..j..\" \"..rowindex..\" tempkey \"..tempkey);\n				if eraseBlocks[tempkey].row or eraseBlocks[tempkey].col then\n					-- 如果是消除的当前移动加1\n					move = move + 1;\n					moveHandledList[tempkey] = true;\n				else\n					-- 不消除的就移动当前的move\n					if move > 0 then\n						-- 保存的是移动后的x， y\n						table.insert(moveList, {x=j, y = rowindex + move, move = move});\n						--print(\"1-- x \"..j..\" y \"..(rowindex+move)..\" move \"..move);\n					end\n				end\n			end\n			\n			-- 还有其他的多生成的移动的等于最后的一个move的\n			for genNew = 1, move do\n				table.insert(moveList, {x=j, y = genNew, move = move});\n				--print(\"new-- x \"..j..\" y \"..genNew..\" move \"..move);\n			end\n			\n			\n			--table.insert();\n		end\n				\n	end\n	\n	--[[\n	-- debug log\n	for movekey, movevalue in ipairs(moveList) do\n		print(\" x \"..movevalue.x..\" y \"..movevalue.y..\" move \"..movevalue.move);\n	end\n	--]]\n	\n	-- 返回消除的block的位置坐标, 没有的话返回nil\n	if hasErase then\n		\n		-- k to pos\n		local poslist = {};\n		for k, v in ipairs(eraseBlocks) do\n			if v.row or v.col then\n				local x, y = self:getPosByIndex(k);\n				\n				table.insert(poslist, {x = x, y = y});\n			end\n		end\n		\n		return poslist, moveList;\n	else\n		return nil;\n	end\n	\nend\n\nfunction blocks:getIndexByPos(x, y)\n	local k = (y-1) * self.w + x;\n	\n	return k;\nend\n\nfunction blocks:getPosByIndex(k)\n	-- local k = (i-1) * self.w + j;\n	\n	local j = math.fmod(k-1, self.w) + 1; -- x 第几列\n	\n	local i = math.floor((k - j) / self.w) + 1; -- y 第几行\n	\n	return j, i;\nend\n\n-- 消除可以消除的，根据消除的数量生成新的blocks，然后在做相应的移动\nfunction blocks:eraseAndGen(poslist)\n	\n	local movelist = {};\n			\n	for k, v in ipairs(poslist) do\n\n		local x, y = v.x, v.y;\n				\n		for i=y, 1, -1 do\n			if i == 1 then\n				-- gen new\n				self.data[x][i] = math.random(1, self.blockTyps);\n			else\n				--print(\"x \"..x..\" i \"..i);\n				self.data[x][i] = self.data[x][i-1];\n			end\n			\n			--table.insert(movelist, {x = x, y = i});\n		end\n					\n	end\n		\n	return movelist;\nend\n\n\n-- 测试\nfunction blocks:test()\n	for i=1, self.h do\n		\n		for j=1, self.w do\n			\n			if i > 1 then\n				print(\"swap i j \"..i..\" \"..j..\" --> \"..(i-1)..\" \"..j);\n				self:swap(i, j, i-1, j);\n				--self:printBlocks();\n				\n				local poslist = self:checkThree();\n				\n				local combo = 0;\n				while poslist ~= nil do\n					\n					print(\"----combo-------  \"..combo);\n					self:printBlocks(poslist);\n					\n					local movelist = self:eraseAndGen(poslist);\n					\n					self:printBlocks(movelist);\n					\n					poslist = self:checkThree();\n					\n					combo = combo + 1;				\n				end\n				\n				if combo == 0 then\n					self:swap(i, j, i-1, j);\n				end\n				\n				--[[\n				if poslist ~= nil then\n					\n					self:printBlocks(poslist);\n					\n					local movelist = self:eraseAndGen(poslist);\n					\n					self:printBlocks(movelist);\n					\n					-- 消除之后，需要判断落下以后是不是有新的消除\n					\n				else\n					self:swap(i, j, i-1, j);\n				end\n				--]]\n				\n			end\n			\n			\n		end\n		\n	end\nend\n\n-- 打印block\nfunction blocks:printBlocks(poslist)\n	local debuginfo = \"\\n\";\n	\n	for i=1, self.h do\n		\n		for j=1, self.w do\n			\n			local inlist = false;\n			if poslist then\n				for k,v in pairs(poslist) do\n					if v.x == j and v.y == i then\n						inlist = true;\n						break;\n					end\n				end\n			end\n			\n			if not inlist then\n				debuginfo = debuginfo..self.data[j][i]..\" \";\n			else\n				debuginfo = debuginfo..\"*\"..self.data[j][i]..\" \";\n			end\n		end\n		\n		debuginfo = debuginfo..\"\\n\";\n		\n	end\n	\n	print(debuginfo);\n	\nend\n",
 			"file": "Assets/uLua/Lua/Game/blocks.lua",
-			"file_size": 7121,
-			"file_write_time": 1451453668000000,
+			"file_size": 7123,
+			"file_write_time": 1451557948000000,
 			"settings":
 			{
-				"buffer_size": 6927,
+				"buffer_size": 6929,
 				"line_ending": "Unix",
 				"scratch": true
 			}
@@ -35,7 +35,7 @@
 			"file": "Assets/uLua/Lua/Game/threeEraseGame.lua",
 			"settings":
 			{
-				"buffer_size": 1472,
+				"buffer_size": 1936,
 				"line_ending": "Unix"
 			}
 		},
@@ -43,7 +43,7 @@
 			"file": "Assets/uLua/Lua/System/Global.lua",
 			"settings":
 			{
-				"buffer_size": 6239,
+				"buffer_size": 6307,
 				"line_ending": "Unix"
 			}
 		},
@@ -52,6 +52,14 @@
 			"settings":
 			{
 				"buffer_size": 1240,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/uLua/Lua/System/Color.lua",
+			"settings":
+			{
+				"buffer_size": 2327,
 				"line_ending": "Unix"
 			}
 		}
@@ -92,6 +100,9 @@
 	},
 	"file_history":
 	[
+		"/Users/zhangyi/code/unity/uLua/Assets/uLua/Lua/debugs.lua",
+		"/Users/zhangyi/code/unity/uLua/Assets/uLua/Lua/string.lua",
+		"/Users/zhangyi/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
 		"/Users/zhangyi/code/unity/uLua/Assets/uLua/Lua/System/Main.lua",
 		"/Users/zhangyi/Desktop/CGIncludes/HLSLSupport.cginc",
 		"/Volumes/C/Program Files (x86)/Autodesk/3ds Max 2012/maxsdk/about.txt",
@@ -103,9 +114,10 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
+			"<open folders>,/Users/zhangyi/code/fbzziap/res/client/Media/Lua",
 			"<open folders>",
 			"/Users/zhangyi/Desktop/CGIncludes"
 		]
@@ -115,6 +127,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"generate",
+			"string.trim",
+			"trim",
+			"DumpTable",
+			"DumpTable\nDumpTable",
+			"file_exclude_patterns",
+			"blockTyps",
 			"insd∂tance1",
 			"\n	",
 			"bundle",
@@ -151,7 +170,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -159,26 +178,27 @@
 					"file": "Assets/uLua/Lua/Game/blocks.lua",
 					"settings":
 					{
-						"buffer_size": 6927,
+						"buffer_size": 6929,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								300,
-								159
+								1553,
+								1553
 							]
 						],
 						"settings":
 						{
 							"in_converting": true,
 							"origin_encoding": "GB2312",
+							"revert_to_scratch": true,
 							"syntax": "Packages/Lua/Lua.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 215.0,
+						"translation.y": 845.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -188,15 +208,15 @@
 					"file": "Assets/uLua/Lua/Game/threeEraseGame.lua",
 					"settings":
 					{
-						"buffer_size": 1472,
+						"buffer_size": 1936,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								360,
-								360
+								606,
+								606
 							]
 						],
 						"settings":
@@ -206,7 +226,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 200.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -216,15 +236,15 @@
 					"file": "Assets/uLua/Lua/System/Global.lua",
 					"settings":
 					{
-						"buffer_size": 6239,
+						"buffer_size": 6307,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								216,
-								229
+								1599,
+								1599
 							]
 						],
 						"settings":
@@ -233,7 +253,7 @@
 							"syntax": "Packages/Lua/Lua.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1901.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -261,7 +281,35 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 297.0,
+						"translation.y": 337.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/uLua/Lua/System/Color.lua",
+					"settings":
+					{
+						"buffer_size": 2327,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								312,
+								317
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 38.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

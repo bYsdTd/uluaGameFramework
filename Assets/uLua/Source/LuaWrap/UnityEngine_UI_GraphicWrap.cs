@@ -334,16 +334,6 @@ public class UnityEngine_UI_GraphicWrap
 			}
 		}
 
-		Debug.Log("set_color");
-
-		Debug.Log(LuaDLL.lua_gettop(L));
-
-		Debug.Log(LuaDLL.lua_type(L, 1));
-		Debug.Log(LuaDLL.lua_type(L, 2));
-		Debug.Log(LuaDLL.lua_type(L, 3));
-
-		Debug.Log(LuaDLL.lua_tostring(L, 2));
-
 		obj.color = LuaScriptMgr.GetColor(L, 3);
 		return 0;
 	}

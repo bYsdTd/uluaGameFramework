@@ -94,7 +94,7 @@ function blocks:generate()
 		
 	end
 	
-	print(debuginfo);
+	--print(debuginfo);
 	
 end
 
