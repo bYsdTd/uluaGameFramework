@@ -1,11 +1,36 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/cSharp/inputManager.cs">
-    <Files>
-      <File FileName="Assets/cSharp/inputManager.cs" Line="6" Column="21" />
-      <File FileName="Assets/cSharp/start.cs" Line="24" Column="9" />
-      <File FileName="Assets/cSharp/luaManager.cs" Line="8" Column="2" />
-    </Files>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="cSharp" expanded="True">
+              <Node name="luaExport" expanded="True" />
+            </Node>
+            <Node name="uLua" expanded="True">
+              <Node name="Core" expanded="True">
+                <Node name="LuaFunction.cs" selected="True" />
+              </Node>
+              <Node name="Source" expanded="True">
+                <Node name="Base" expanded="True" />
+                <Node name="LuaWrap" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+          <Node name="Assembly-CSharp-Editor" expanded="True">
+            <Node name="uLua" expanded="True">
+              <Node name="Examples" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>ToLuaExport.className</Value>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

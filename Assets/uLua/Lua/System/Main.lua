@@ -47,6 +47,29 @@ function Main()
 
 end
 
+function HandleTouchDown( x, y )
+	-- body
+	print("handle touch down ");
+	print(x);
+	print(y);
+end
+
+function  HandleTouchMove( x, y )
+
+	-- body
+	print("handle touch move ");
+	print(x);
+	print(y);
+end
+
+function HandleTouchUp( x, y )
+	-- body
+
+	print("handle touch up ");
+	print(x);
+	print(y);
+end
+
 function Update(deltatime, unscaledDeltaTime)
 
 	Time:SetDeltaTime(deltatime, unscaledDeltaTime)

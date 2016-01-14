@@ -62,6 +62,8 @@ function threeEraseGame:ctor()
 
 			end);
 
+			-- box collider
+			
 			--print("anchoredPosition "..tostring(rect.anchoredPosition));
 			--print("anchorMin "..tostring(rect.anchorMin));
 			--print("anchorMax "..tostring(rect.anchorMax));
