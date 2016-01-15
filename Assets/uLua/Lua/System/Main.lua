@@ -21,11 +21,10 @@ function TestCo2()
 	print("coroutine2 over:", i)
 end
 
-
 function TestCo()
 	print("a simple coroutine test")
 	print("current time:"..Time.time)
-	coroutine.wait(1)
+	coroutine.wait(10)
 	print("sleep time:"..Time.time)
 	print("current frame:"..Time.frameCount)
 	coroutine.step()
@@ -33,6 +32,7 @@ function TestCo()
 	print("coroutine over")
 end
 
+local g_threeEraseGame = nil;
 
 function Main()
 	Time:Init()
@@ -41,33 +41,40 @@ function Main()
 	--coroutine.start(TestCo)
 	--coroutine.start(TestCo2)
 	
-	print("Main");
-	
-	local game = threeEraseGame.New();
+	g_threeEraseGame = threeEraseGame.New();
 
 end
 
+
 function HandleTouchDown( x, y )
 	-- body
-	print("handle touch down ");
-	print(x);
-	print(y);
+	--print("handle touch down ");
+	--print(x);
+	--print(y);
+
+	coroutine.start(TestCo)
+
+	g_threeEraseGame:onTouchDown(x, y);
+
 end
 
 function  HandleTouchMove( x, y )
 
+	g_threeEraseGame:onTouchMove(x, y);
 	-- body
-	print("handle touch move ");
-	print(x);
-	print(y);
+	--print("handle touch move ");
+	--print(x);
+	--print(y);
 end
 
 function HandleTouchUp( x, y )
 	-- body
 
-	print("handle touch up ");
-	print(x);
-	print(y);
+	g_threeEraseGame:onTouchUp(x, y);
+
+	--print("handle touch up ");
+	--print(x);
+	--print(y);
 end
 
 function Update(deltatime, unscaledDeltaTime)

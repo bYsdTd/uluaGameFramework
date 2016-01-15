@@ -84,7 +84,7 @@ function Vector2.Dot(lhs, rhs)
 end
 
 function Vector2.Angle(from, to)
-	return acos(clamp(Vector2.dot(from:Normalize(), to:Normalize()), -1, 1)) * 57.29578
+	return math.acos(math.clamp(Vector2.Dot(from:Normalize(), to:Normalize()), -1, 1)) * 57.29578
 end
 
 

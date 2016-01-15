@@ -6,7 +6,6 @@ Type			= System.Type
 Object          = UnityEngine.Object
 GameObject 		= UnityEngine.GameObject
 Transform 		= UnityEngine.Transform
-RectTransform	= UnityEngine.RectTransform
 MonoBehaviour 	= UnityEngine.MonoBehaviour
 Component		= UnityEngine.Component
 Application		= UnityEngine.Application
@@ -16,6 +15,8 @@ Camera			= UnityEngine.Camera
 Material 		= UnityEngine.Material
 Renderer 		= UnityEngine.Renderer
 AsyncOperation	= UnityEngine.AsyncOperation
+--Time 			= UnityEngine.Time;
+
 
 CharacterController = UnityEngine.CharacterController
 SkinnedMeshRenderer = UnityEngine.SkinnedMeshRenderer
@@ -43,6 +44,8 @@ TouchPhase 		= UnityEngine.TouchPhase
 AnimationBlendMode = UnityEngine.AnimationBlendMode
 
 -- UGUI
+RectTransformUtility = UnityEngine.RectTransformUtility
+RectTransform	= UnityEngine.RectTransform
 Image = UnityEngine.UI.Image
 Button = UnityEngine.UI.Button
 

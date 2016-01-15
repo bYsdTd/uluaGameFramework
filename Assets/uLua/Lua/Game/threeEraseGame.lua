@@ -21,7 +21,10 @@ function threeEraseGame:ctor()
 	blocks:generate();
 	--blocks:test();
 
-	---[[	
+	self.blockInstance = {};
+
+	self.touchDownPos = Vector2.New(-1, -1);
+
 	local go = UnityEngine.Resources.Load("ui/block", GameObject.GetClassType());
 	local canvas = GameObject.Find("UI(Clone)/Canvas");
 
@@ -58,9 +61,11 @@ function threeEraseGame:ctor()
 			local btn = instance:GetComponent(Button.GetClassType());
 			btn.onClick:AddListener(function ()
 				-- body
-				print("On Click "..index);
+				--print("On Click "..index);
 
 			end);
+
+			self.blockInstance[blocks:getIndexByPos(j,i)] = instance;
 
 			-- box collider
 			
@@ -79,7 +84,105 @@ function threeEraseGame:ctor()
 		yoffset = yoffset + size;
 	end
 
-	--]]
+
+end
+
+function threeEraseGame:onTouchDown( x, y )
+	-- body
+
+	if self.blockInstance then
+	
+		for k,v in pairs(self.blockInstance ) do
+			
+			local rect = v:GetComponent(RectTransform.GetClassType());
+
+			local contains = RectTransformUtility.RectangleContainsScreenPoint(rect, Vector2.New(x, y));
+
+			if contains then
+				print("onTouchDown K"..k);
+
+				self.touchDownPos.x = x;
+				self.touchDownPos.y = y;
+
+				break;
+			end
+		end
+	end
+
+end
+
+function threeEraseGame:onTouchMove( x, y )
+	-- body
+
+	if self.touchDownPos.x < 0 or self.touchDownPos.y < 0 then
+		return;
+	end
+
+	local nowPos = Vector2.New(x, y);
+	local moveDir = nowPos - self.touchDownPos;
+
+	if moveDir:Magnitude() >= 30 then
+		
+		--print(moveDir);
+
+		--print(Vector2.Dot(Vector2.up:Normalize(), moveDir:Normalize()));
+
+		-- move offset 30
+		local angel = Vector2.Angle(Vector2.up, moveDir);
+
+		print("on move angel "..angel);
+
+		if moveDir.x > 0 then
+		
+			-- right
+			if angel >=0 and angel < 45 then
+			
+			-- up
+				print("up");
+
+			elseif angel >= 45 and angel < 135 then
+			-- right
+				
+				print("right");
+			else
+			-- down
+				print("down");
+			end
+
+		else
+		
+			-- left
+
+			if angel >=0 and angel < 45 then
+			
+			-- up
+				print("up");
+
+			elseif angel >= 45 and angel < 135 then
+			-- left
+				
+				print("left");
+			else
+			-- down
+				
+				print("down");
+			end
+
+		end
+
+	end
+
+end
+
+
+function  threeEraseGame:onTouchUp( x, y )
+	-- body
+
+	self.touchDownPos.x = -1;
+	self.touchDownPos.y = -1;
+end
+
+function threeEraseGame:swapBlocks(x1, y1, x2, y2)
 
 
 end

@@ -90,6 +90,7 @@ public static class WrapFile {
 
 		// ui
 		_GT(typeof(RectTransform)),
+		_GT(typeof(RectTransformUtility)),
 		_GT(typeof(UIBehaviour)),
 		_GT(typeof(Selectable)),
 		_GT(typeof(Button)),

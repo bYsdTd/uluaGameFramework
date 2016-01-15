@@ -151,6 +151,7 @@
      <Compile Include="Assets\uLua\Source\LuaWrap\PlayModeWrap.cs" />
      <Compile Include="Assets\uLua\Source\LuaWrap\QualitySettingsWrap.cs" />
      <Compile Include="Assets\uLua\Source\LuaWrap\QueueModeWrap.cs" />
+     <Compile Include="Assets\uLua\Source\LuaWrap\RectTransformUtilityWrap.cs" />
      <Compile Include="Assets\uLua\Source\LuaWrap\RectTransformWrap.cs" />
      <Compile Include="Assets\uLua\Source\LuaWrap\RenderSettingsWrap.cs" />
      <Compile Include="Assets\uLua\Source\LuaWrap\RenderTextureWrap.cs" />
@@ -183,22 +184,15 @@
      <Compile Include="Assets\uLua\Source\LuaWrap\UtilWrap.cs" />
      <Compile Include="Assets\uLua\Source\LuaWrap\WWWWrap.cs" />
      <Compile Include="Assets\uLua\Source\LuaWrap\stringWrap.cs" />
-     <Compile Include="Assets\uLua\Source\LuaWrap\testOutParamsWrap.cs" />
      <None Include="Assets\uLua\README.txt" />
      <None Include="Assets\uLua\Examples\A4_ButtonClick\ReadMe.txt" />
      <None Include="Assets\uLua\Examples\04_ScriptsFromFile\ScriptsFromFile01.lua.txt" />
      <None Include="Assets\uLua\Lua\System\readme.txt" />
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Debuger">
  <HintPath>/Users/zhangyi/code/unity/uLua/Assets/Plugins/Debuger.dll</HintPath>
