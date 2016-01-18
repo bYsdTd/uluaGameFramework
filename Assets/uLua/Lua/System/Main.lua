@@ -52,8 +52,6 @@ function HandleTouchDown( x, y )
 	--print(x);
 	--print(y);
 
-	coroutine.start(TestCo)
-
 	g_threeEraseGame:onTouchDown(x, y);
 
 end

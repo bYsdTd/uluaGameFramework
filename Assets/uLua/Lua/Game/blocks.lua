@@ -359,10 +359,11 @@ function blocks:printBlocks(poslist)
 			end
 		end
 		
-		debuginfo = debuginfo.."\n";
-		
+		--debuginfo = debuginfo.."\n";
+		print(debuginfo);
+		debuginfo = "";
 	end
 	
-	print(debuginfo);
+	--print(debuginfo);
 	
 end

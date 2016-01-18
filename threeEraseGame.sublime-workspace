@@ -4,8 +4,84 @@
 		"selected_items":
 		[
 			[
+				"posi",
+				"position2"
+			],
+			[
+				"moveb",
+				"moveBlockLocked"
+			],
+			[
+				"move",
+				"moveBlockLocked"
+			],
+			[
+				"time",
+				"timeElaps"
+			],
+			[
+				"blo",
+				"block2"
+			],
+			[
+				"bl",
+				"block1"
+			],
+			[
+				"get",
+				"getIndexByPos"
+			],
+			[
+				"ti",
+				"timeElaps"
+			],
+			[
+				"pos",
+				"position1"
+			],
+			[
+				"an",
+				"anchoredPosition"
+			],
+			[
+				"rec",
+				"RectTransform"
+			],
+			[
+				"swa",
+				"swapBlocks"
+			],
+			[
+				"else",
+				"elseif"
+			],
+			[
+				"i",
+				"if"
+			],
+			[
+				"tim",
+				"Time"
+			],
+			[
+				"fun",
+				"function	function"
+			],
+			[
+				"del",
+				"deltaTime"
+			],
+			[
+				"de",
+				"deltaTime"
+			],
+			[
+				"tou",
+				"touchDownY"
+			],
+			[
 				"for",
-				"fori	for i,v in ipairs()"
+				"forp	for k,v in pairs()"
 			],
 			[
 				"worl",
@@ -39,7 +115,7 @@
 			"file": "Assets/uLua/Lua/Game/threeEraseGame.lua",
 			"settings":
 			{
-				"buffer_size": 1959,
+				"buffer_size": 5804,
 				"line_ending": "Unix"
 			}
 		},
@@ -47,7 +123,7 @@
 			"file": "Assets/uLua/Lua/System/Global.lua",
 			"settings":
 			{
-				"buffer_size": 6307,
+				"buffer_size": 6394,
 				"line_ending": "Unix"
 			}
 		},
@@ -55,7 +131,31 @@
 			"file": "Assets/uLua/Lua/System/Main.lua",
 			"settings":
 			{
-				"buffer_size": 1536,
+				"buffer_size": 1685,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/uLua/Lua/System/Time.lua",
+			"settings":
+			{
+				"buffer_size": 1098,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/uLua/Lua/System/Timer.lua",
+			"settings":
+			{
+				"buffer_size": 4167,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/uLua/Lua/System/Coroutine.lua",
+			"settings":
+			{
+				"buffer_size": 2252,
 				"line_ending": "Unix"
 			}
 		},
@@ -72,6 +172,14 @@
 			"settings":
 			{
 				"buffer_size": 12615,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/uLua/Lua/System/Vector2.lua",
+			"settings":
+			{
+				"buffer_size": 3007,
 				"line_ending": "Unix"
 			}
 		}
@@ -126,9 +234,10 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
+			"<open folders>",
 			"<open folders>,/Users/zhangyi/code/fbzziap/res/client/Media/Lua",
 			"<open folders>",
 			"/Users/zhangyi/Desktop/CGIncludes"
@@ -139,6 +248,35 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"onMoveBlock",
+			"moveBlock",
+			"swap",
+			"blocks",
+			"deltaTime",
+			"Time",
+			"System.Time",
+			"Time.time",
+			"print(",
+			"System.Time",
+			"Time:SetDeltaTime",
+			"Time:Init()",
+			"beginTime",
+			"Time:init",
+			"Time",
+			"Time.time",
+			"unscaledDeltaTime",
+			"self.time ",
+			"CoUpdateBeat",
+			"Time",
+			"CoTimer",
+			"coroutine.running",
+			"coroutine",
+			"Dot",
+			"clamp",
+			"acos",
+			"fields",
+			"checkThree",
+			"movelist",
 			"generate",
 			"string.trim",
 			"trim",
@@ -171,6 +309,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"movelist",
 			""
 		],
 		"reverse": false,
@@ -182,7 +321,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -197,8 +336,8 @@
 						"selection":
 						[
 							[
-								1553,
-								1553
+								5642,
+								5646
 							]
 						],
 						"settings":
@@ -210,7 +349,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 845.0,
+						"translation.y": 4039.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -220,15 +359,15 @@
 					"file": "Assets/uLua/Lua/Game/threeEraseGame.lua",
 					"settings":
 					{
-						"buffer_size": 1959,
+						"buffer_size": 5804,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1433,
-								1433
+								5277,
+								5277
 							]
 						],
 						"settings":
@@ -238,7 +377,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 475.0,
+						"translation.y": 3382.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -248,15 +387,15 @@
 					"file": "Assets/uLua/Lua/System/Global.lua",
 					"settings":
 					{
-						"buffer_size": 6307,
+						"buffer_size": 6394,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1599,
-								1599
+								2070,
+								2070
 							]
 						],
 						"settings":
@@ -265,7 +404,7 @@
 							"syntax": "Packages/Lua/Lua.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1104.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -275,15 +414,15 @@
 					"file": "Assets/uLua/Lua/System/Main.lua",
 					"settings":
 					{
-						"buffer_size": 1536,
+						"buffer_size": 1685,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1044,
-								1044
+								816,
+								816
 							]
 						],
 						"settings":
@@ -293,13 +432,97 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 332.0,
+						"translation.y": 278.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
+					"file": "Assets/uLua/Lua/System/Time.lua",
+					"settings":
+					{
+						"buffer_size": 1098,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								100,
+								109
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Assets/uLua/Lua/System/Timer.lua",
+					"settings":
+					{
+						"buffer_size": 4167,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3842,
+								3842
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1798.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Assets/uLua/Lua/System/Coroutine.lua",
+					"settings":
+					{
+						"buffer_size": 2252,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								566,
+								571
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
 					"file": "Assets/uLua/Lua/System/Color.lua",
 					"settings":
 					{
@@ -310,8 +533,8 @@
 						"selection":
 						[
 							[
-								312,
-								317
+								95,
+								95
 							]
 						],
 						"settings":
@@ -321,13 +544,13 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 38.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 8,
 					"file": "Assets/uLua/Lua/System/Vector3.lua",
 					"settings":
 					{
@@ -349,7 +572,35 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 263.0,
+						"translation.y": 2628.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "Assets/uLua/Lua/System/Vector2.lua",
+					"settings":
+					{
+						"buffer_size": 3007,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1544,
+								1544
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1036.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -398,6 +649,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"vec",
+				"System/Vector2.lua"
+			]
 		],
 		"width": 0.0
 	},
